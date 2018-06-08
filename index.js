@@ -23,9 +23,10 @@ const TemplateEngine = function (tpl, data) {
     return {
       addLine: ({index}) => {
         let line = template.slice(cursor, index);
-        code.push(`template.push("${line.replace(/"/g, '\\"')}");\n`);
+        code.push(`template.push("${line.replace(/('|")/g, '\\$1')}");\n`);
       },
       insert: ({startIndex, placeholder, prop}) => {
+        prop = prop.replace(/(^\s+)|(\s+$)/g, '');
         if (prop.match(sentRe)) {
           code.push(`${prop}\n`);
         } else {
