@@ -13,7 +13,7 @@ const TemplateEngine = function (tpl, data) {
   }
   
   let code = transform();
-  return new Function(code.replace(/[\r\t\n]/g, '')).apply(data);
+  return new Function(code.replace(/[\r\t\n]/g, '')).call(data);
 
   function templateHandler (template) {
     let code = ['let template = [];\n'];
